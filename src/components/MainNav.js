@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import { useNavigate } from "@reach/router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonAppBar() {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   return (
     <div className={classes.root}>
@@ -37,7 +39,18 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             Expat Journal
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button onClick={() => navigate("/")} color="inherit">
+            Home
+          </Button>
+          <Button onClick={() => navigate("/signin")} color="inherit">
+            About
+          </Button>
+          <Button onClick={() => navigate("/signin")} color="inherit">
+            Login
+          </Button>
+          <Button onClick={() => navigate("/signup")} color="inherit">
+            Sign Up
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
