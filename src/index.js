@@ -5,13 +5,31 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { theme } from "./theme/muiTheme";
 import { ThemeProvider, CssBaseline } from "@material-ui/core";
+// redux
+import { Provider } from "react-redux";
+import { applyMiddleware, createStore, compose } from "redux";
+import rootReducer from "./store/reducers";
+import logger from "redux-logger";
+import thunk from "redux-thunk";
+
+const store = createStore(
+  rootReducer,
+  compose(
+    applyMiddleware(thunk, logger),
+    window.__REDUX_DEVTOOLS_EXTENSION__
+      ? window.__REDUX_DEVTOOLS_EXTENSION__()
+      : (f) => f
+  )
+);
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <App />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

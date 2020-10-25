@@ -1,15 +1,12 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+import { Grid, Paper } from "@material-ui/core";
+import PostCard from "../components/PostCard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    paddingTop: theme.spacing(2),
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -19,8 +16,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home() {
+export default function Home({ posts }) {
   const classes = useStyles();
 
-  return <div className={classes.root}>Stuff</div>;
+  const renderPosts = () => {
+    if (posts) {
+      return posts.map((post) => {
+        return (
+          <Grid key={post.id}>
+            <PostCard post={post} />
+          </Grid>
+        );
+      });
+    }
+  };
+  return (
+    <div className={classes.root}>
+      <Grid container justify="center">
+        {renderPosts()}
+      </Grid>
+    </div>
+  );
 }
